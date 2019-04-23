@@ -13,6 +13,8 @@ const client = new Client({
   ssl      : settings.ssl
 })
 
+console.log(settings)
+
 let counter = 1
 
 client.connect((err) => {
@@ -23,7 +25,6 @@ client.connect((err) => {
     if (err) {
       return console.error("error running query", err);
     }
-    console.log(`Found ${result.rows.length} person(s) by the name ${name}:`);
     printOutput (result, counter)
     client.end();
   });
@@ -36,6 +37,7 @@ const getBirthday = function (result, index) {
 }
 
 const printOutput = function (result, counter) {
+  console.log(`Found ${result.rows.length} person(s) by the name ${name}:`);
   result.rows.forEach( function (){
     console.log(`- ${counter} ${name} ${result.rows[counter-1].last_name}, born '${getBirthday(result, counter)}'`)
     counter ++
